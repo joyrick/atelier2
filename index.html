@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>360 Image Viewer with Auto-Switch and Fade Transition</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+      }
+      a-scene {
+        width: 100vw;
+        height: 100vh;
+      }
+      #sky {
+        transition: opacity 1s ease-in-out;
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <a-scene>
+      <a-sky  id="sky" src="default_panorama_irish_pub.png" rotation="0 -90 0"></a-sky>
+    </a-scene>
+
+    <script>
+      const images = [
+        "360_tretia_peaky_blinders_interpolacia.png",
+        "360_druha_s_interpolaciou.png",
+        "default_panorama_irish_pub.png"
+      ];
+
+      let currentIndex = 0;
+      const skyElement = document.getElementById("sky");
+
+      function switchImage() {
+        skyElement.style.opacity = 0;
+        setTimeout(() => {
+          currentIndex = (currentIndex + 1) % images.length;
+          skyElement.setAttribute("src", images[currentIndex]);
+          skyElement.style.opacity = 1;
+        }, 1000); 
+      }
+
+      setInterval(switchImage, 5000);
+    </script>
+  </body>
+</html>
