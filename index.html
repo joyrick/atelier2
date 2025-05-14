@@ -32,6 +32,18 @@
         opacity: 1;
         transition: opacity 0.5s ease-out;
       }
+      #switch-button {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0,0,0,0.6);
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
     </style>
   </head>
   <body>
@@ -40,6 +52,8 @@
     <a-scene vr-mode-ui="enabled: true" embedded id="scene">
       <a-sky id="sky" src="default_panorama_irish_pub.png" rotation="0 -90 0"></a-sky>
     </a-scene>
+
+    <button id="switch-button" onclick="switchImage()">Change Panorama</button>
 
     <script>
       const images = [
@@ -63,12 +77,16 @@
         }, 500);
       }
 
-      document.getElementById("scene").addEventListener("click", switchImage);
-
       window.addEventListener("load", () => {
         const loadingScreen = document.getElementById("loading-screen");
-        loadingScreen.style.opacity = 0;
-        setTimeout(() => { loadingScreen.style.display = "none"; }, 500);
+
+        const interval = setInterval(() => {
+          if (skyElement.getAttribute("src") === "default_panorama_irish_pub.png") {
+            loadingScreen.style.opacity = 0;
+            setTimeout(() => { loadingScreen.style.display = "none"; }, 500);
+            clearInterval(interval);
+          }
+        }, 100);
       });
     </script>
   </body>
