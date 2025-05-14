@@ -35,21 +35,21 @@
       #switch-button {
         position: absolute;
         bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
         background: rgba(0,0,0,0.6);
         color: #fff;
         border: none;
         padding: 10px 20px;
         cursor: pointer;
         font-size: 1rem;
-        left: 50%;
-        transform: translateX(-50%);
       }
     </style>
   </head>
   <body>
     <div id="loading-screen">Loading...</div>
 
-    <a-scene vr-mode-ui="enabled: true; enterVRButton: true;" embedded id="scene">
+    <a-scene vr-mode-ui="enabled: true" embedded id="scene">
       <a-sky id="sky" src="default_panorama_irish_pub.png" rotation="0 -90 0"></a-sky>
     </a-scene>
 
