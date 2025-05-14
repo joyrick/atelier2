@@ -32,7 +32,7 @@
         opacity: 1;
         transition: opacity 0.5s ease-out;
       }
-      #switch-button, #fullscreen-button {
+      #switch-button {
         position: absolute;
         bottom: 20px;
         background: rgba(0,0,0,0.6);
@@ -41,13 +41,8 @@
         padding: 10px 20px;
         cursor: pointer;
         font-size: 1rem;
-      }
-      #switch-button {
         left: 50%;
-        transform: translateX(-60%);
-      }
-      #fullscreen-button {
-        right: 10px;
+        transform: translateX(-50%);
       }
     </style>
   </head>
@@ -59,7 +54,6 @@
     </a-scene>
 
     <button id="switch-button" onclick="switchImage()">Change Panorama</button>
-    <button id="fullscreen-button" onclick="toggleFullscreen()">Fullscreen</button>
 
     <script>
       const images = [
@@ -81,13 +75,6 @@
           skyElement.setAttribute("src", images[currentIndex]);
           skyElement.style.opacity = 1;
         }, 500);
-      }
-
-      function toggleFullscreen() {
-        const scene = document.querySelector('a-scene');
-        if (scene.requestFullscreen) scene.requestFullscreen();
-        else if (scene.webkitRequestFullscreen) scene.webkitRequestFullscreen();
-        else if (scene.msRequestFullscreen) scene.msRequestFullscreen();
       }
 
       window.addEventListener("load", () => {
