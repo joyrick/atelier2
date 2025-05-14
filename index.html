@@ -28,13 +28,16 @@
         align-items: center;
         font-size: 2rem;
         z-index: 9999;
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.5s ease-out;
       }
     </style>
   </head>
   <body>
     <div id="loading-screen">Loading...</div>
 
-    <a-scene vr-mode-ui="enabled: true" embedded>
+    <a-scene vr-mode-ui="enabled: true" embedded id="scene">
       <a-sky id="sky" src="default_panorama_irish_pub.png" rotation="0 -90 0"></a-sky>
     </a-scene>
 
@@ -57,13 +60,15 @@
           currentIndex = (currentIndex + 1) % images.length;
           skyElement.setAttribute("src", images[currentIndex]);
           skyElement.style.opacity = 1;
-        }, 1000);
+        }, 500);
       }
 
-      setInterval(switchImage, 3000);
+      document.getElementById("scene").addEventListener("click", switchImage);
 
       window.addEventListener("load", () => {
-        document.getElementById("loading-screen").style.display = "none";
+        const loadingScreen = document.getElementById("loading-screen");
+        loadingScreen.style.opacity = 0;
+        setTimeout(() => { loadingScreen.style.display = "none"; }, 500);
       });
     </script>
   </body>
