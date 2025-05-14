@@ -54,7 +54,7 @@
   <body>
     <div id="loading-screen">Loading...</div>
 
-    <a-scene vr-mode-ui="enabled: true" embedded id="scene">
+    <a-scene vr-mode-ui="enabled: true; enterVRButton: true;" embedded id="scene">
       <a-sky id="sky" src="default_panorama_irish_pub.png" rotation="0 -90 0"></a-sky>
     </a-scene>
 
@@ -84,12 +84,10 @@
       }
 
       function toggleFullscreen() {
-        const scene = document.getElementById("scene");
-        if (!document.fullscreenElement) {
-          scene.requestFullscreen();
-        } else {
-          document.exitFullscreen();
-        }
+        const scene = document.querySelector('a-scene');
+        if (scene.requestFullscreen) scene.requestFullscreen();
+        else if (scene.webkitRequestFullscreen) scene.webkitRequestFullscreen();
+        else if (scene.msRequestFullscreen) scene.msRequestFullscreen();
       }
 
       window.addEventListener("load", () => {
