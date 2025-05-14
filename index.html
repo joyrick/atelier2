@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>360 Image Viewer with Auto-Switch and Fade Transition</title>
+    <title>360 Image Viewer with VR Support and Loading Screen</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <style>
       body {
@@ -15,11 +15,27 @@
         transition: opacity 1s ease-in-out;
         opacity: 1;
       }
+      #loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #000;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        z-index: 9999;
+      }
     </style>
   </head>
   <body>
-    <a-scene>
-      <a-sky  id="sky" src="default_panorama_irish_pub.png" rotation="0 -90 0"></a-sky>
+    <div id="loading-screen">Loading...</div>
+
+    <a-scene vr-mode-ui="enabled: true" embedded>
+      <a-sky id="sky" src="default_panorama_irish_pub.png" rotation="0 -90 0"></a-sky>
     </a-scene>
 
     <script>
@@ -30,7 +46,6 @@
         "Panorama5.png",
         "360_stvrta_cybermarket.png",
         "default_panorama_irish_pub.png"
-
       ];
 
       let currentIndex = 0;
@@ -42,10 +57,14 @@
           currentIndex = (currentIndex + 1) % images.length;
           skyElement.setAttribute("src", images[currentIndex]);
           skyElement.style.opacity = 1;
-        }, 1000); 
+        }, 1000);
       }
 
       setInterval(switchImage, 5000);
+
+      window.addEventListener("load", () => {
+        document.getElementById("loading-screen").style.display = "none";
+      });
     </script>
   </body>
 </html>
